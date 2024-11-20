@@ -1,0 +1,10 @@
+export const MAX_DRIVING_HOURS = 9; // Horas máximas de conducción permitidas
+export const MAX_WORK_HOURS = 15; // Horas máximas de trabajo
+export const REST_TIME = 0.75; // Tiempo de descanso obligatorio (en horas)
+export const DRIVING_SESSION_LIMIT = 4.5; // Horas máximas de conducción continua
+export const AVERAGE_SPEED = 90; // Velocidad media en km/h
+export const MAX_SERVICE_HOURS = 24; // Máximo de horas de servicio en una jornada
+export const HOUR_START_NIGHT = 22; // Hora de inicio de nocturnidad
+export const HOUR_END_NIGHT = 6; // Hora de fin de nocturnidad
+export const MAX_WAITING_HOURS_FOR_CHARGE_PARKING = 4;
+export const TAX = 10;

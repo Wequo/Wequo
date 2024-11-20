@@ -1,0 +1,79 @@
+{   
+    "languages":{
+        "es": "Spanish",
+        "en": "English"
+    },
+
+    "steps": {
+        "step": "Step",
+        "step1": "Trip Details",
+        "step2": "Vehicle at Destination",
+        "step3": "Enter your email to see prices"
+    },
+
+    "step1": {
+        "title": "Trip Details",
+        "travel_type": "Trip Type",
+        "start_date": "Start Date",
+        "end_date": "Arrival Date",
+        "time": "Time",
+        "one_way": "One Way",
+        "round_trip": "Round Trip",
+        "passengers": "Passengers",
+        "departure_address": "Departure Address",
+        "arrival_address": "Arrival Address",
+        "autocomplete":"Type to autocomplete",
+        "arrival_date": "Select the departure date.",
+        "return_date": "Select the return date."
+    },
+
+    "step2": {
+        "needsVehicle": "Once at your destination, do you need to use the vehicle?*",
+        "yes": "Yes",
+        "no": "No",
+        "additional_details": "Additional Details",
+        "desired_equipment": "Equipment You Would Like",
+        "equipments": {
+            "mic": "Microphone",
+            "pmr_accessory": "PMR Accessory",
+            "electric_outlets": "Electric Outlets",
+            "video": "Video",
+            "bathroom": "Bathroom"
+        },
+        "luggage": {
+            "title": "Luggage",
+            "typeofluggage": "Select an option",
+            "none": "No Luggage",
+            "classic": "Classic Suitcases",
+            "large": "Large Suitcases",
+            "bulky": "Bulky Luggage"
+        },
+        "travel_purpose": {
+            "title": "Travel Purpose",
+            "typeOfTravelPurpose": "Select an option",
+
+            "wedding": "Wedding or Ceremony",
+            "bachelor_party": "Bachelor/Bachelorette Party",
+            "sports_trip": "Sports Trip",
+            "business_trip": "Business Trip",
+            "cultural_trip": "Cultural or Leisure Trip (Tourism)",
+            "airport_transfer": "Airport/Train Transfer",
+            "school_group": "School Group",
+            "seniors_group": "Group of Seniors",
+            "musicians_group": "Group of Musicians"
+        },
+        "notes_placeholder": "Comments"
+    },
+    "step3": {
+        "email": "Email address",
+        "phone": "Phone Number"
+    },
+
+    "btns" : {
+        "next": "Next",
+        "finish": "Finish",
+        "back": "Back" 
+    }
+
+
+}

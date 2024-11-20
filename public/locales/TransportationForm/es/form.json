@@ -1,0 +1,77 @@
+{   
+    "languages":{
+        "es": "Español",
+        "en": "Inglés"
+    },
+
+    "steps": {
+        "step": "Paso",
+        "step1": "Datos del viaje",
+        "step2": "Vehículo en destino",
+        "step3": "Ingresa tu email para ver los precios"
+    },
+
+    "step1": {
+        "title": "Datos del viaje",
+        "travel_type": "Tipo de viaje",
+        "start_date": "Fecha de Salida",
+        "end_date": "Fecha de regreso",
+        "time": "Hora", 
+        "one_way": "Ida",
+        "round_trip": "Ida y Vuelta",
+        "passengers": "Pasajeros",
+        "departure_address": "Dirección de salida",
+        "arrival_address": "Dirección de llegada",
+        "autocomplete":"Escribe para autocompletar",
+        "arrival_date": "Selecciona la fecha de salida.",
+        "return_date": "Selecciona la fecha de regreso."
+    },
+
+    "step2": {
+        "needsVehicle": "Una vez en tu destino, ¿necesitas utilizar el vehículo?*",
+        "yes": "Si",
+        "no": "No",
+        "additional_details": "Detalles adicionales",
+        "desired_equipment": "Equipo que desearías",
+        "equipments": {
+            "mic": "Microfono",
+            "pmr_accessory": "Accesor para PMR",
+            "electric_outlets": "Enchufes eléctricos",
+            "video": "Video",
+            "bathroom": "Baño"
+        },
+        "luggage": {
+            "title":"Equipage",
+            "typeofluggage": "Elige una opción",
+            "none": "Sin Equipaje",
+            "classic":"Maletas clásicas",
+            "large": "Maletas grandes",
+            "bulky": "Equipaje voluminoso"
+        },
+        "travel_purpose": {
+            "title": "Propósito del viaje",
+            "typeOfTravelPurpose": "Elige una opción",
+            "wedding": "Boda o ceremonia",
+            "bachelor_party": "Despedida de soltero/a",
+            "sports_trip": "Viajes deportivos",
+            "business_trip": "Viajes de empresa",
+            "cultural_trip": "Viajes culturales o de ocio (turismo)",
+            "airport_transfer": "Transferencia a aeropuerto/tren",
+            "school_group": "Grupo escolar",
+            "seniors_group": "Grupo de personas mayores",
+            "musicians_group": "Grupos de músicos"
+        },
+        "notes_placeholder": "Comentarios"
+    },
+    "step3": {
+        "email": "Correo electrónico",
+        "phone": "Teléfono"
+    },
+
+    "btns" : {
+        "next": "Siguiente",
+        "finish": "Finalizar",
+        "back": "Volver" 
+    }
+
+}

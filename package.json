@@ -9,18 +9,35 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "react": "19.0.0-rc-02c0e824-20241028",
-    "react-dom": "19.0.0-rc-02c0e824-20241028",
-    "next": "15.0.2"
+    "@react-google-maps/api": "^2.20.3",
+    "@reduxjs/toolkit": "^2.3.0",
+    "@supabase/supabase-js": "^2.46.1",
+    "date-fns": "^4.1.0",
+    "dayjs": "^1.11.13",
+    "i18next": "^23.16.4",
+    "i18next-http-backend": "^2.6.2",
+    "next": "15.0.2",
+    "next-i18next": "^15.3.1",
+    "next-navigation": "^1.0.6",
+    "nodemailer": "^6.9.16",
+    "react": "^18.3.1",
+    "react-datepicker": "^7.5.0",
+    "react-dom": "^18.3.1",
+    "react-i18next": "^15.1.1",
+    "react-redux": "^9.1.2",
+    "uuid": "^11.0.3"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@types/google.maps": "^3.58.1",
     "@types/node": "^20",
+    "@types/nodemailer": "^6.4.16",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/uuid": "^10.0.0",
+    "eslint": "^8",
+    "eslint-config-next": "15.0.2",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
-    "eslint": "^8",
-    "eslint-config-next": "15.0.2"
+    "typescript": "^5"
   }
 }
