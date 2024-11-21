@@ -25,6 +25,9 @@ import { sendEmail } from '@/utils/notification/emailService';
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
 
+import { bt, fd } from '@/utils/dates';
+
+
 import { v4 as uuidv4 } from 'uuid'; // Para generar el ID único
 import {storingQuoteOnDb} from "@/utils/services/transportation/storingData";
 
@@ -82,10 +85,10 @@ export async function POST(request: Request) {
 
   if (formData.tripType === 'oneWay') {
     const gap = 1;
-    const startDateTime = dayjs(`${formData.startDate}T${formData.startTime}`);
+    const startDateTime = bt(formData.startDate,formData.startTime);
     const calculatedEndDateTime = startDateTime.add(driverHours + gap, 'hour');
 
-    formData.endDate = calculatedEndDateTime.format('YYYY-MM-DD');
+    formData.endDate = calculatedEndDateTime.toISOString()
     formData.endTime = calculatedEndDateTime.format('HH:mm');
   }
 
@@ -248,8 +251,8 @@ export async function POST(request: Request) {
         <p style="margin: 0;"></p>
             <p style="margin: 0;">
                 <span style="font-size: 15px;">
-                    <strong>Fecha de salida</strong>: ${formData.startDate} 
-                    ${formData.tripType !== 'oneWay' ? `- <strong>Fecha de Regreso:</strong> ${formData.endDate}` : ''}
+                    <strong>Fecha de salida</strong>: ${fd(formData.startDate)} 
+                    ${formData.tripType !== 'oneWay' ? `- <strong>Fecha de Regreso:</strong> ${fd(formData.endDate)}` : ''}
                 </span>
             </p>
             <p style="margin: 0;"></p>
@@ -302,15 +305,15 @@ export async function POST(request: Request) {
     <p style="margin: 0;"></p>
     <p style="margin: 0;">
         <span style="font-size: 15px;">
-            <strong>Fecha de salida</strong>: ${formData.startDate} 
-            ${formData.tripType !== 'oneWay' ? `- <strong>Fecha de Regreso:</strong> ${formData.endDate}` : ''}
+            <strong>Fecha de salida</strong>: ${fd(formData.startDate)} 
+            ${formData.tripType !== 'oneWay' ? `- <strong>Fecha de Regreso:</strong> ${fd(formData.endDate)}` : ''}
         </span>
     </p>
     <p style="margin: 0;"></p>
     <p style="margin: 0;">
         <span style="font-size: 15px;">
             <strong>Hora de Salida</strong>: ${formData.startTime} 
-            ${formData.tripType !== 'oneWay' ? `- <strong>Hora de regreso:</strong> ${formData.endTime}` : ''}
+            ${formData.tripType !== 'oneWay' ? `- <strong>Hora de regreso:</strong> ${formData.startTime}` : ''}
         </span>
     </p>
     <p style="margin: 0;"></p>

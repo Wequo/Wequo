@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { bt } from '@/utils/dates';
 
 type IdleProps = {
     formData: {
@@ -9,22 +10,22 @@ type IdleProps = {
     };
     company: {
         overnight_supplement_per_driver: number;
-        night_end_time: string; // Asegúrate de que este valor esté definido en el formato "HH:mm"
+        night_end_time: string; 
     };
     drivers: number;
     breakdown: any[];
 };
 
 export function getIdleDriver({ company, formData, drivers, breakdown }: IdleProps): number {
-    // Comprobar si algún segmento incluye una noche
+    // la primera parte incluye tramo nocturno?
     const Segment1NightIncluded = breakdown.some((breaks:any) => breaks.segment === 'departure');
 
     const pricePerDriver = company.overnight_supplement_per_driver;
 
     const { startDate, startTime, endDate, endTime } = formData;
+    const startDateTime = bt(startDate,startTime);
+    const endDateTime = bt(endDate,endTime);
 
-    const startDateTime = dayjs(`${startDate}T${startTime}`);
-    const endDateTime = dayjs(`${endDate}T${endTime}`);
     const nextDayNightEndTime = dayjs(`${startDate}T${company.night_end_time}`).add(1, 'day');
 
     if (!startDateTime.isValid() || !endDateTime.isValid()) {

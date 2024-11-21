@@ -1,5 +1,5 @@
 import {MAX_DRIVING_HOURS, MAX_WORK_HOURS} from "./config"
-import dayjs from 'dayjs';
+import { bt } from '@/utils/dates';
 
 type DriverParams = {
     totalHoursDriving: number;
@@ -19,10 +19,9 @@ export function getSecondDriverPrice({ totalHoursDriving, totalWorkHours, formDa
     const {startDate, startTime, endDate, endTime} = formData;
 
     const secondDriverCost = vehicleDetail.second_driver_surcharge; //precio por segundo conductor
- 
-    const startDateTime = dayjs(`${startDate}T${startTime}`); //Fecha de Inicio del viaje
+    const startDateTime = bt(startDate,startTime);
+    const endDateTime = bt(endDate,endTime);
 
-    const endDateTime = dayjs(`${endDate}T${endTime}`); //Cuando inicia el regreso. 
     const endEndDate = endDateTime.add(totalHoursDriving, 'hour');
 
     const tripDurationInHours = endEndDate.diff(startDateTime, 'hour');

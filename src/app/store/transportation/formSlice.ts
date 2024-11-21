@@ -4,8 +4,10 @@ import {FormData} from "./types"
 
 const initialState: FormData = {
   tripType: "roundTrip",
-  startDate: "",
-  startTime: "",
+  startDate: '',
+  startTime: '',
+  endDate: '',
+  endTime: '',
   passengers: 20,
   departureAddress: "",
   arrivalAddress: "",

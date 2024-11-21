@@ -44,7 +44,7 @@ const Step1 = () => {
     endTime: false,
   });
   
-  console.log(conf)
+  console.log(formData)
 
   const handleChange = (field: keyof typeof formData, value: any) => {
     dispatch(updateFormData({ [field]: value }));
@@ -58,60 +58,57 @@ const Step1 = () => {
   };
 
   const handleStartDateChange = (selectedDate: string) => {
-    const date = dayjs(selectedDate).utc(true).format("YYYY-MM-DD");
-    const today = new Date().toISOString().split("T")[0];
-    if (selectedDate < today) {
-      setFormErrors((prev) => ({ ...prev, startDate: true }));
-    } else {
-      setFormErrors((prev) => ({ ...prev, startDate: false }));
-    }
-    handleChange("startDate", date);
+    const date = dayjs(selectedDate).utc().startOf("day").toISOString(); // Solo almacena la fecha en UTC
+    const today = dayjs().utc().startOf("day");
 
-  };
+      if (dayjs(selectedDate).isBefore(today)) {
+          setFormErrors((prev) => ({ ...prev, startDate: true }));
+      } else {
+          setFormErrors((prev) => ({ ...prev, startDate: false }));
+      }
+      handleChange("startDate", date);
+  }
+    
+  const handleStartTimeChange = (selectedTime: Date) => {
+    const time = dayjs(selectedTime).format("HH:mm"); // Formato de hora local
+    const currentDate = dayjs();
+    const currentTimeString = currentDate.format("HH:mm");
   
-  const handleStartTimeChange = (selectedTime: string) => {
-    const time = dayjs(selectedTime).format("HH:mm")
-    const startDate = formData.startDate;
-    const currentDate = new Date();
-    const currentDateString = currentDate.toISOString().split("T")[0];
-    const currentTimeString = currentDate.toTimeString().split(" ")[0].slice(0, 5);
-  
-    if (startDate === currentDateString && time < currentTimeString) {
+    if (time < currentTimeString && dayjs().isSame(formData.startDate, 'day')) {
       setFormErrors((prev) => ({ ...prev, startTime: true }));
     } else {
       setFormErrors((prev) => ({ ...prev, startTime: false }));
     }
     handleChange("startTime", time);
-
   };
-  
-  const handleEndDateChange = (selectedDate: string) => {
-    const date = dayjs(selectedDate).utc(true).format("YYYY-MM-DD"); 
 
-    if (date < formData.startDate) {
-      setFormErrors((prev) => ({ ...prev, endDate: true }));
+const handleEndDateChange = (selectedDate: string) => {
+  const date = dayjs(selectedDate).utc().startOf("day").toISOString();
+
+    if (dayjs(selectedDate).isBefore(dayjs(formData.startDate))) {
+        setFormErrors((prev) => ({ ...prev, endDate: true }));
     } else {
-      setFormErrors((prev) => ({ ...prev, endDate: false }));
+        setFormErrors((prev) => ({ ...prev, endDate: false }));
     }
     handleChange("endDate", date);
-
-  };
+};
   
-  const handleEndTimeChange = (selectedTime: string) => {
-    const time = dayjs(selectedTime).format("HH:mm")
+const handleEndTimeChange = (selectedTime: Date) => {
+  const time = dayjs(selectedTime).format("HH:mm"); // Formato de hora local
 
-    const startDateTime = new Date(`${formData.startDate}T${formData.startTime}`);
-    const endDateTime = new Date(`${formData.endDate}T${time}`);
-    const timeDifference = (endDateTime.getTime() - startDateTime.getTime()) / (1000 * 60 * 60);
-  
-    if (formData.endDate === formData.startDate && timeDifference < 2) {
-      setFormErrors((prev) => ({ ...prev, endTime: true }));
-    } else {
-      setFormErrors((prev) => ({ ...prev, endTime: false }));
-    }
-    handleChange("endTime", time);
+  const startDateTime = dayjs(`${formData.startDate}T${formData.startTime}`);
+  const endDateTime = dayjs(`${formData.endDate}T${time}`);
 
-  };
+  const timeDifference = endDateTime.diff(startDateTime, "hour", true);
+
+  if (formData.endDate === formData.startDate && timeDifference < 2) {
+    setFormErrors((prev) => ({ ...prev, endTime: true }));
+  } else {
+    setFormErrors((prev) => ({ ...prev, endTime: false }));
+  }
+
+  handleChange("endTime", time);
+};
   
 
 
@@ -138,14 +135,16 @@ const Step1 = () => {
             <label className="block text-gray-600 mb-1">{t('step1.start_date')}*</label>
             <div className="input-container">
             <DatePicker
+              dateFormat="dd/MM/yyyy"
               locale={lang}
-              value={formData.startDate}
+              selected={formData.startDate ? dayjs(formData.startDate).toDate() : null}
+
               placeholderText={t('step1.arrival_date')}
               onChange={(date:any) => { 
                 handleStartDateChange(date)
               }}
 
-              dateFormat="dd-MM-yyyy" 
+              
               minDate={new Date()} 
               className={`w-full border rounded-lg p-2 focus:border-blue-500 ${
                 formErrors.startDate ? "border-red-500" : "border-gray-400"
@@ -192,9 +191,8 @@ const Step1 = () => {
               <DatePicker
                 required
                 locale={lang}
-                value={formData.endDate}
-                dateFormat="dd-MM-yyyy" 
-
+                selected={formData.endDate ? dayjs(formData.endDate).toDate() : null}
+                dateFormat="dd-MM-yyyy"
                 placeholderText={t('step1.return_date')}
                 minDate={formData.startDate ? dayjs(formData.startDate).utc(true).toDate() : new Date()} // Conversión a UTC
                 onChange={(date: any) => {
@@ -221,7 +219,6 @@ const Step1 = () => {
                   showTimeSelectOnly
                   timeIntervals={15} 
                   timeFormat="HH:mm" 
-                  dateFormat="HH:mm" 
                   className={`w-full border rounded-lg p-2 focus:border-blue-500 ${
                     formErrors.endTime ? "border-red-500" : "border-gray-400"
                   }`}

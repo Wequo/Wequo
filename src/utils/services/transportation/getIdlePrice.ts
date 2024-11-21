@@ -1,4 +1,4 @@
-import dayjs from 'dayjs';
+import { bt } from '@/utils/dates';
 
 type IdleProps = {
     vehicleDetail: any;
@@ -10,9 +10,9 @@ export function getIdlePrice({ vehicleDetail, formData, totalHours }: IdleProps)
     const { startDate, startTime, endDate, endTime } = formData;
 
     const idlePriceCost = vehicleDetail.idle_day_price;
+    const startDateTime = bt(startDate,startTime).add(totalHours, 'hour');
+    const endDateTime = bt(endDate,endTime).add(totalHours, 'hour');
 
-    const startDateTime = dayjs(`${startDate}T${startTime}`).add(totalHours, 'hour');
-    const endDateTime = dayjs(`${endDate}T${endTime}`);
 
     const daysDifference = endDateTime.diff(startDateTime, 'day', true); 
     const fullDays = Math.floor(daysDifference);

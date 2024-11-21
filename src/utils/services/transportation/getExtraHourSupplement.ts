@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import { MAX_WORK_HOURS } from './config';
+import { bt } from '@/utils/dates';
 
 
 type ExtraSuplementProps = {
@@ -14,35 +15,22 @@ type ExtraSuplementProps = {
 
 export function getExtraHourSupplement({companySettings,  distanceDetails, formData, distance,  totalHours2}:ExtraSuplementProps) {
     if(distance) {
-        console.log('ADENTRO DE SUPLEMENTO EXTRA HORAS')
-        console.log(distanceDetails)
         if(distanceDetails.totalKm < distanceDetails.toKm) {
-            const startDateTime = dayjs(`${formData.startDate}T${formData.startTime}`);
-            const endDateTime = dayjs(`${formData.endDate}T${formData.endTime}`)
+            const startDateTime = bt(formData.startDate, formData.startTime);
+            const endDateTime = bt(formData.endDate,formData.endTime);
+
             const endArrivalTime = endDateTime.add(totalHours2, 'hour');
 
 
         
             const hoursDifference = endArrivalTime.diff(startDateTime, 'hour', true);
-
-            console.log('inicio', startDateTime.toString())
-            console.log('regreso',  endDateTime.toString())
-            console.log('llegada a la vuelta', endArrivalTime.toString())
-            console.log('horas de diferencia', hoursDifference)
-            if(hoursDifference > distanceDetails.maxServicesHours) {
+            console.log('is over hours and below maxWorking hours?', hoursDifference > distanceDetails.maxServicesHours && hoursDifference <= MAX_WORK_HOURS);
+            console.log(hoursDifference)
+            if(hoursDifference > distanceDetails.maxServicesHours && hoursDifference <= MAX_WORK_HOURS) {
                 const costPerHour = (distanceDetails.total*companySettings.supplement_per_extra_hour)/100;
-                console.log('COSTO POR HORA', costPerHour)
                 const extraHours = Math.ceil(hoursDifference-distanceDetails.maxServicesHours);
-                console.log('extraHours', extraHours)
-
                 const maxExtraHours = MAX_WORK_HOURS - distanceDetails.maxServicesHours;
-
-                console.log('maxExtraHours', maxExtraHours)
-
                 const finalHours = extraHours > maxExtraHours ? maxExtraHours : extraHours;
-
-                console.log('finalHours', finalHours)
-
                 return finalHours * costPerHour;
             }
             else {

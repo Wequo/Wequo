@@ -54,10 +54,10 @@ export interface PricingRule {
 
   export interface FormData {
     tripType: string;
-    startDate: string;
-    startTime: string;
-    endDate?: string;
-    endTime?: string;
+    startDate: string | undefined;
+    startTime: string | undefined;
+    endDate?: string | undefined;
+    endTime?: string | undefined;
     passengers: number;
     departureAddress: string;
     arrivalAddress: string;

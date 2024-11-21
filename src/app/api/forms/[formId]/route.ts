@@ -6,7 +6,7 @@ export async function GET(
   { params }: any
 ) {
   try {
-    const { formId } = params;
+    const { formId } = await params;
 
     const { data, error } = await supabase
       .from('forms')
