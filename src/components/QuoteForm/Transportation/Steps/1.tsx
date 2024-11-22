@@ -33,7 +33,6 @@ const Step1 = () => {
 
   const dispatch = useDispatch();
   const lang = useSelector((state: RootState) => state.config.language);
-  const conf = useSelector((state: RootState) => state.config);
 
   const formData = useSelector((state: RootState) => state.formData);
 
