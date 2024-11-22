@@ -10,7 +10,6 @@ dayjs.extend(isSameOrBefore);
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-const timezones = 'Europe/Madrid';
 
 type NightServiceProps = {
     companySettings: { night_start_time: string; night_end_time: string };

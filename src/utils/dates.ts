@@ -6,7 +6,7 @@ dayjs.extend(customParseFormat);
 dayjs.extend(utc);
 
 export const bt = (date: string, time: string): dayjs.Dayjs => {
-    let parsedDate = dayjs(date).isValid()
+    const parsedDate = dayjs(date).isValid()
         ? dayjs(date).utc() 
         : dayjs(date, ["YYYY-MM-DD", "DD-MM-YYYY", "YYYY-MM-DDTHH:mm:ss[Z]"], true).utc(); 
     if (!parsedDate.isValid()) {
