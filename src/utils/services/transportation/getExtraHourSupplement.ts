@@ -21,8 +21,6 @@ export function getExtraHourSupplement({companySettings,  distanceDetails, formD
 
             const endArrivalTime = endDateTime.add(totalHours2, 'hour');
 
-
-        
             const hoursDifference = endArrivalTime.diff(startDateTime, 'hour', true);
             console.log('is over hours and below maxWorking hours?', hoursDifference > distanceDetails.maxServicesHours && hoursDifference <= MAX_WORK_HOURS);
             console.log(hoursDifference)
