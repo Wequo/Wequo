@@ -18,13 +18,13 @@ export function getSecondDriverPrice({ totalHoursDriving, totalWorkHours, formDa
 
     const {startDate, startTime, endDate, endTime} = formData;
 
-    const secondDriverCost = vehicleDetail.second_driver_surcharge; //precio por segundo conductor
+    const secondDriverCost = vehicleDetail.second_driver_surcharge; 
     const startDateTime = bt(startDate,startTime);
     const endDateTime = bt(endDate,endTime);
 
     const endEndDate = endDateTime.add(totalHoursDriving, 'hour');
 
-    const tripDurationInHours = endEndDate.diff(startDateTime, 'hour');
+    const tripDurationInHours = endEndDate.diff(startDateTime, "minutes") / 60;
 
 
     

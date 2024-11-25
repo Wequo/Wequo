@@ -26,7 +26,7 @@ export function getIdleDriver({ company, formData, drivers, breakdown }: IdlePro
     const startDateTime = bt(startDate,startTime);
     const endDateTime = bt(endDate,endTime);
 
-    const nextDayNightEndTime = dayjs(`${startDate}T${company.night_end_time}`).add(1, 'day');
+    const nextDayNightEndTime = bt(startDate,company.night_end_time).add(1, 'day');
 
     if (!startDateTime.isValid() || !endDateTime.isValid()) {
         console.error('Fechas de inicio o fin no son válidas');
