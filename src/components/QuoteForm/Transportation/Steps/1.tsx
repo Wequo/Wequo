@@ -46,16 +46,7 @@ const Step1 = () => {
   console.log(formData)
 
   const handleChange = (field: keyof typeof formData, value: any) => {
-    if (field === "passengers") {
-      const parsedValue = Number(value);
-  
-      if (!isNaN(parsedValue)) {
-        const clampedValue = Math.max(parsedValue, 8);
-        dispatch(updateFormData({ [field]: clampedValue }));
-      }
-    } else {
       dispatch(updateFormData({ [field]: value }));
-    }
   };
 
   const handleAddressSelect = async (field: "departureAddress" | "arrivalAddress", address: string) => {
@@ -246,11 +237,9 @@ const handleEndTimeChange = (selectedTime: Date) => {
             <input
             required
               type="number"
-              min="8"
-              max="60"
               value={formData.passengers}
               onChange={(e) => handleChange("passengers", Number(e.target.value))}
-              className="w-full border border-gray-400 rounded-lg p-2 pl-10 focus:border-blue-500"
+              className={`w-full border ${formData.passengers >= 8 ? "border-gray-400"  : "border-red-500"} rounded-lg p-2 pl-10 focus:border-blue-500`}
             />
             <span className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" ><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
