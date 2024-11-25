@@ -241,6 +241,20 @@ export async function POST(request: Request) {
 
   const notes = formData.additionalNotes ? formData.additionalNotes.trim() : "Sin detalles del viaje.";
 
+  const PriceDetails = () => {
+    if (formData.needsVehicle && formData.additionalNotes !== "" || !showPrices) {
+      return `<span></span>`;
+    }
+  
+    return (
+      `<p style="margin: 0;">
+        <span style="font-size: 17px;"><strong>Presupuesto</strong>: 
+          ${Number(responseData.quotation.total?.toFixed(2)).toLocaleString('es-ES')} €
+        </span>
+      </p>`
+    );
+  }
+
   const companyEmailBody = `
         <div>
         <p style="margin: 0;">
@@ -283,17 +297,11 @@ export async function POST(request: Request) {
         <p style="margin: 0;"></p>
         <p style="margin: 0;"></p>
         <p style="margin: 0;"></p>
-        <p style="margin: 0;">
-            <span style="font-size: 17px;"><strong>Presupuesto</strong>: ${Number(responseData.quotation.total?.toFixed(2)).toLocaleString('es-ES')} €</span>
-        </p>
+        ${PriceDetails()}
     </div>
   `
 
-  const PriceDetails = () => {
-    return showPrices ? (`<p style="margin: 0;">
-      <span style="font-size: 17px;"><strong>Presupuesto</strong>: ${Number(responseData.quotation.total?.toFixed(2)).toLocaleString('es-ES')} €</span>
-  </p>`) : (`<span></span>`)
-  }
+
 
   const clientEmailBody = `<div>
     <p style="margin: 0;">
