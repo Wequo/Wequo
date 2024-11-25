@@ -237,7 +237,7 @@ const handleEndTimeChange = (selectedTime: Date) => {
             <input
             required
               type="number"
-              value={formData.passengers}
+              value={formData.passengers ? formData.passengers : ""}
               onChange={(e) => handleChange("passengers", Number(e.target.value))}
               className={`w-full border ${formData.passengers >= 8 ? "border-gray-400"  : "border-red-500"} rounded-lg p-2 pl-10 focus:border-blue-500`}
             />
