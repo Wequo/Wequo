@@ -6,14 +6,14 @@ type DistancePriceProps = {
 
   
   export function getDistancePrice({ pricingRules, distance, vehicleDetail }: DistancePriceProps) {
-    console.log('getDistancePrice', pricingRules, distance, vehicleDetail);
   
     if (distance) {
       const doubleDistance = distance * 2;
   
       for (let i = 0; i < pricingRules.length; i++) {
-        if (doubleDistance <= pricingRules[i].to_km) {
-          console.log(`Distance ${doubleDistance} km falls within range ${pricingRules[i].from_km}-${pricingRules[i].to_km} km`);
+        const doubleLimitKmtrs = pricingRules[i].to_km*2
+
+        if (doubleDistance <= doubleLimitKmtrs) {
           return {
             total: pricingRules[i].price, 
             baseCost: pricingRules[i].price,
@@ -27,7 +27,7 @@ type DistancePriceProps = {
   
       const lastRule = pricingRules[pricingRules.length - 1];
       const kmCost = vehicleDetail.price_per_km;
-      const extraDistance = doubleDistance - lastRule.to_km; 
+      const extraDistance = doubleDistance - lastRule.to_km*2; 
       const extraKmCost = extraDistance * kmCost;
       const totalPrice = lastRule.price + extraKmCost;
   
