@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
 
-export async function sendEmail({ to, subject, body }: { to: string; subject: string; body: string; }) {
+export async function sendEmail({ to, subject, body, companyName }: { to: string; subject: string; body: string; companyName: string; }) {
   const transporter = nodemailer.createTransport({
     host: 'smtp.hostinger.com',
     port: 465, 
@@ -12,7 +12,7 @@ export async function sendEmail({ to, subject, body }: { to: string; subject: st
   });
 
   await transporter.sendMail({
-    from: process.env.EMAIL_USER,
+    from: `${companyName} <${process.env.EMAIL_USER}>`, // Formato: "Nombre de Empresa <email>"
     to,
     subject,
     html:body
