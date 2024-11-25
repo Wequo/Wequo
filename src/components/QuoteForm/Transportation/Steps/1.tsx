@@ -46,7 +46,16 @@ const Step1 = () => {
   console.log(formData)
 
   const handleChange = (field: keyof typeof formData, value: any) => {
-    dispatch(updateFormData({ [field]: value }));
+    if (field === "passengers") {
+      const parsedValue = Number(value);
+  
+      if (!isNaN(parsedValue)) {
+        const clampedValue = Math.max(parsedValue, 8);
+        dispatch(updateFormData({ [field]: clampedValue }));
+      }
+    } else {
+      dispatch(updateFormData({ [field]: value }));
+    }
   };
 
   const handleAddressSelect = async (field: "departureAddress" | "arrivalAddress", address: string) => {
@@ -56,20 +65,23 @@ const Step1 = () => {
 
   };
 
-  const handleStartDateChange = (selectedDate: string) => {
-    const date = dayjs(selectedDate).utc().startOf("day").toISOString(); // Solo almacena la fecha en UTC
+  const handleStartDateChange = (selectedDate: Date) => {
+    const normalizedDate = dayjs(selectedDate).startOf("day").toISOString(); // Normaliza la fecha a UTC
     const today = dayjs().utc().startOf("day");
+  
+    if (dayjs(normalizedDate).isBefore(today)) {
+      setFormErrors((prev) => ({ ...prev, startDate: true }));
+    } else {
+      setFormErrors((prev) => ({ ...prev, startDate: false }));
+    }
+  
+    handleChange("startDate", normalizedDate);
+  };
+  
 
-      if (dayjs(selectedDate).isBefore(today)) {
-          setFormErrors((prev) => ({ ...prev, startDate: true }));
-      } else {
-          setFormErrors((prev) => ({ ...prev, startDate: false }));
-      }
-      handleChange("startDate", date);
-  }
     
   const handleStartTimeChange = (selectedTime: Date) => {
-    const time = dayjs(selectedTime).format("HH:mm"); // Formato de hora local
+    const time = dayjs(selectedTime).format("HH:mm"); 
     const currentDate = dayjs();
     const currentTimeString = currentDate.format("HH:mm");
   
@@ -81,16 +93,17 @@ const Step1 = () => {
     handleChange("startTime", time);
   };
 
-const handleEndDateChange = (selectedDate: string) => {
-  const date = dayjs(selectedDate).utc().startOf("day").toISOString();
-
-    if (dayjs(selectedDate).isBefore(dayjs(formData.startDate))) {
-        setFormErrors((prev) => ({ ...prev, endDate: true }));
+  const handleEndDateChange = (selectedDate: Date) => {
+    const normalizedDate = dayjs(selectedDate).startOf("day").toISOString();
+  
+    if (dayjs(normalizedDate).isBefore(dayjs(formData.startDate))) {
+      setFormErrors((prev) => ({ ...prev, endDate: true }));
     } else {
-        setFormErrors((prev) => ({ ...prev, endDate: false }));
+      setFormErrors((prev) => ({ ...prev, endDate: false }));
     }
-    handleChange("endDate", date);
-};
+  
+    handleChange("endDate", normalizedDate);
+  };
   
 const handleEndTimeChange = (selectedTime: Date) => {
   const time = dayjs(selectedTime).format("HH:mm"); // Formato de hora local
@@ -109,9 +122,6 @@ const handleEndTimeChange = (selectedTime: Date) => {
   handleChange("endTime", time);
 };
   
-
-
- 
 
   return (
     <>
@@ -134,10 +144,9 @@ const handleEndTimeChange = (selectedTime: Date) => {
             <label className="block text-gray-600 mb-1">{t('step1.start_date')}*</label>
             <div className="input-container">
             <DatePicker
+              selected={formData.startDate ? new Date(formData.startDate) : null} // Convertir a Date nativo
               dateFormat="dd/MM/yyyy"
               locale={lang}
-              selected={formData.startDate ? dayjs(formData.startDate).toDate() : null}
-
               placeholderText={t('step1.arrival_date')}
               onChange={(date:any) => { 
                 handleStartDateChange(date)
@@ -190,8 +199,8 @@ const handleEndTimeChange = (selectedTime: Date) => {
               <DatePicker
                 required
                 locale={lang}
-                selected={formData.endDate ? dayjs(formData.endDate).toDate() : null}
-                dateFormat="dd-MM-yyyy"
+                selected={formData.endDate ? new Date(formData.endDate) : null} // Convertir a Date nativo
+                dateFormat="dd/MM/yyyy"
                 placeholderText={t('step1.return_date')}
                 minDate={formData.startDate ? dayjs(formData.startDate).utc(true).toDate() : new Date()} // Conversión a UTC
                 onChange={(date: any) => {
