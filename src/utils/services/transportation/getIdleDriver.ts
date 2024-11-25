@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import { bt } from '@/utils/dates';
 
 type IdleProps = {
