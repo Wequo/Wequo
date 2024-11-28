@@ -9,8 +9,9 @@ export const findBestMatch = (vehicles: any[], formData: any) => {
     };
   
     const filteredVehicles = vehicles.filter(applyConditions);
-  
-    const vehicleList = filteredVehicles.length === 0 ? vehicles : filteredVehicles;
+    const fallbackVehicles = vehicles.filter(conditions.capacity);
+
+    const vehicleList = filteredVehicles.length === 0 ? fallbackVehicles : filteredVehicles;
   
     return vehicleList.sort((a, b) => a.passager_limit - b.passager_limit)[0] || null;
   };
