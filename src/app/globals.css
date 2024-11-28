@@ -115,3 +115,7 @@ select::after {
 .input-container.time-container .react-datepicker-wrapper {
   width: 100px;
 }
+
+span {
+  color:#000;
+}
