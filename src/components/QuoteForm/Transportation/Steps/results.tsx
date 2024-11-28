@@ -59,9 +59,9 @@ const Results = () => {
     <div className="space-y-4">
       {bestOption ? (
         <div>
-          <h1>Presupuesto {bestOption?.quotation?.id}</h1>
+          <h1 className="text-gray-600">Presupuesto {bestOption?.quotation?.id}</h1>
           <div className={`flex items-center justify-center space-x-4 border p-4 rounded-lg ${showPrices ? 'shadow-md' : ''}`}>
-            {showPrices && (
+            {(formData.needsVehicle || formData.additionalNotes !== "" || !showPrices) && (
               <>
                 <Image
                   src={bestOption?.vehicle?.photo_urls[0]}
@@ -71,16 +71,16 @@ const Results = () => {
                   className="object-cover rounded-lg"
                 />
                 <div className="flex items-center">
-                  <h2 className="text-xl font-bold center">{bestOption?.vehicle?.title}</h2>
+                  <h2 className="text-gray-600 text-xl font-bold center">{bestOption?.vehicle?.title}</h2>
                   <p className="text-gray-600 center">{bestOption?.vehicle?.description}</p>
-                  <h2 className="text-xl font-bold center">
+                  <h2 className="text-gray-600 text-xl font-bold center">
                     € {Number(bestOption?.quotation?.total?.toFixed(2)).toLocaleString('es-ES')} (iva incluido)
                   </h2>
                 </div>
               </>
             )}
-            {!showPrices && (
-              <h3 className="text-l font-bold center">
+            {(formData.needsVehicle || formData.additionalNotes !== "" || !showPrices) && (
+              <h3 className="text-gray-600 text-l font-bold center">
                 Gracias por interés, en breve recibirás el presupuesto en tu email.
               </h3>
             )}
