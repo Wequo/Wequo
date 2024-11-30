@@ -61,7 +61,7 @@ const Results = () => {
         <div>
           <h1 className="text-gray-600">Presupuesto {bestOption?.quotation?.id}</h1>
           <div className={`flex items-center justify-center space-x-4 border p-4 rounded-lg ${showPrices ? 'shadow-md' : ''}`}>
-            {(!formData.needsVehicle || formData.additionalNotes === "" || !showPrices) && (
+            {(!formData.needsVehicle && formData.additionalNotes === "" && showPrices) && (
               <>
                 <Image
                   src={bestOption?.vehicle?.photo_urls[0]}

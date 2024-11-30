@@ -260,6 +260,12 @@ export async function POST(request: Request) {
     return currentFormatedDay;
 };
 
+const needsVehicleExtraData = () => {
+  return formData.needsVehicle ? (`
+    <p style="margin: 0;"><span style="font-size: 15px;"><strong>Detalles adicionales</strong>: ${formData.needsVehicleDescription}</span></p><p style="margin: 0;"></p>`
+  ) : ('')
+}
+
   const companyEmailBody = `
         <div>
         <p style="margin: 0;">
@@ -293,6 +299,7 @@ export async function POST(request: Request) {
         <p style="margin: 0;"><span style="font-size: 15px;"><strong>Dirección de destino</strong>: ${formData.arrivalAddress}</span></p><p style="margin: 0;"></p>
         <p style="margin: 0;"><span style="font-size: 15px;"><strong>Cantidad de pasajeros</strong>: ${formData.passengers}</span></p><p style="margin: 0;"></p>
         <p style="margin: 0;"><span style="font-size: 15px;"><strong>Necesita Autocar en destino</strong>: ${formData.needsVehicle ? 'Si' : 'No'}</span></p><p style="margin: 0;"></p>
+        ${needsVehicleExtraData()}
         <p style="margin: 0;"><span style="font-size: 15px;"><strong>Tipo de equipaje</strong>: ${luggage[formData.luggage]}</span></p><p style="margin: 0;"></p>
         <p style="margin: 0;"><span style="font-size: 15px;"><strong>Propósito del viaje</strong>: ${travel_purpose[formData.travelPurpose]}</span></p><p style="margin: 0;"></p>
         <p style="margin: 0;"><span style="font-size: 15px;"><strong>Equipo que desearías (opcional)</strong>:</span></p> <p style="margin: 0;"></p>
@@ -350,6 +357,7 @@ export async function POST(request: Request) {
         <span style="font-size: 15px;"><strong>Necesita Autocar en destino</strong>: ${formData.needsVehicle ? 'Si' : 'No'}</span>
     </p>
     <p style="margin: 0;"></p>
+    ${needsVehicleExtraData()}
     <p style="margin: 0;">
         <span style="font-size: 15px;"><strong>Tipo de equipaje</strong>: ${luggage[formData.luggage]}</span>
     </p>
