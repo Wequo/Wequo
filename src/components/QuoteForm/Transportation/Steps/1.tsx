@@ -10,6 +10,7 @@ import { registerLocale } from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import {es} from 'date-fns/locale/es'; 
 import {enUS as en} from 'date-fns/locale/en-US'; 
+import dayjs from "dayjs"
 
 import utc from "dayjs/plugin/utc";
 dayjs.extend(utc);
@@ -18,7 +19,6 @@ dayjs.extend(utc);
 registerLocale('es', es);
 registerLocale('en', en);
 
-import dayjs from "dayjs"
 interface FormErrors {
   startDate: boolean;
   startTime: boolean;

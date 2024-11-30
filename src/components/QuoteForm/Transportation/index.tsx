@@ -3,6 +3,10 @@ import { Step1, Step2, Step3, Results } from "./Steps";
 
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/store';
+import dayjs from "dayjs"
+import utc from "dayjs/plugin/utc";
+dayjs.extend(utc);
+
 
 interface TransportationFormProps {
   currentStep: number;
@@ -21,7 +25,8 @@ const TransportationForm: React.FC<TransportationFormProps> = ({ currentStep, on
   const validateStep = () => {
     if (currentStep === 1) {
       const { tripType, startDate, startTime, passengers, departureAddress, arrivalAddress, endDate, endTime } = formData;
-      const today = new Date().toISOString().split("T")[0]; 
+      const today = dayjs().utc().startOf("day");
+
       if (
         tripType &&
         startDate &&
@@ -31,8 +36,8 @@ const TransportationForm: React.FC<TransportationFormProps> = ({ currentStep, on
         departureAddress &&
         arrivalAddress &&
         (tripType === "oneWay" || (endDate && endTime)) &&
-        startDate >= today && 
-        (tripType === "oneWay" || !endDate || startDate <= endDate) 
+        dayjs(startDate).isSameOrAfter(today) && 
+        (tripType === "oneWay" || !endDate || dayjs(startDate).isSameOrBefore(dayjs(endDate)))
       ) {
         return true;
       }
