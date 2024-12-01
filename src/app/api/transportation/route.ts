@@ -30,7 +30,11 @@ import { bt } from '@/utils/dates';
 
 import { v4 as uuidv4 } from 'uuid'; // Para generar el ID único
 import {storingQuoteOnDb} from "@/utils/services/transportation/storingData";
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
 
+dayjs.extend(utc);
+dayjs.extend(timezone);
 dayjs.extend(isBetween);
 
 export async function POST(request: Request) {
@@ -256,7 +260,7 @@ export async function POST(request: Request) {
   }
 
   const formatDates = (isoDate:any) => {
-    const currentFormatedDay = dayjs.utc(isoDate).format('DD/MM/YYYY')
+    const currentFormatedDay = dayjs.utc(isoDate).tz('Europe/Madrid').format('DD/MM/YYYY')
     return currentFormatedDay;
 };
 
