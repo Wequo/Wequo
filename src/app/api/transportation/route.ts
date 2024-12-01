@@ -335,6 +335,8 @@ const needsVehicleExtraData = () => {
         <span style="font-size: 15px;"><strong>Mail</strong>: ${formData.email}</span>
     </p>
     <p style="margin: 0;"></p>
+    <p style="margin: 0;"><span style="font-size: 15px;"><strong>Tipo de Viaje</strong>: ${formData.tripType ==='oneWay' ? "Viaje de Ida" : "Viaje de Ida y Vuelta"}</span></p><p style="margin: 0;"></p>
+
     <p style="margin: 0;">
         <span style="font-size: 15px;">
             <strong>Fecha de salida</strong>: ${formatDates(formData.startDate)}  
