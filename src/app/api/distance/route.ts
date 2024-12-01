@@ -13,8 +13,6 @@ export async function GET(request: Request) {
     );
   }
 
-  console.log('salida', departure);
-  console.log('llegada', arrival);
 
   try {
     // Función para obtener información geocodificada
