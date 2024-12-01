@@ -129,7 +129,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ formId, isDialog=false}) => {
         />
 
         {currentStep < configStep.length && (
-          <h2 className="text-xl font-semibold mb-4 text-left">
+          <h2 className="text-xl font-semibold mb-4 text-left text-gray-600">
             {t('steps.step')} {currentStep}/3: {configStep[currentStep-1]}
           </h2>
         )
